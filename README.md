@@ -3,7 +3,7 @@
 Software developed to register attack systems in judo combats
 
 # Links
-* University of São Paulo Master's Dissertation Repository
+* Thesis and Dissertations Repository of the University of São Paulo
 	* https://www.teses.usp.br/teses/disponiveis/39/39135/tde-31032022-094649/pt-br.php
 * Tutorial for the identification of technical-tactical variables of the attack system of the JASS
 	* [Tutorial_Technical-Tactical_Variables_JASS.pdf (pt-br)](Documents/Tutorial_Technical-Tactical_Variables_JASS.pdf)
