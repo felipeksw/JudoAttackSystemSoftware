@@ -1,7 +1,7 @@
 object frmPrincipal: TfrmPrincipal
-  Left = 445
+  Left = 1043
   Height = 600
-  Top = 113
+  Top = 183
   Width = 800
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
@@ -119,19 +119,19 @@ object frmPrincipal: TfrmPrincipal
   OnKeyDown = FormKeyDown
   OnShow = FormShow
   Position = poDesktopCenter
-  LCLVersion = '2.0.12.0'
+  LCLVersion = '2.0.6.0'
   object pgctrlDados: TPageControl
     Left = 0
     Height = 200
     Top = 400
-    Width = 800
-    ActivePage = tbsCadastro
-    TabIndex = 0
+    Width = 798
+    ActivePage = tbsNewaza
+    TabIndex = 6
     TabOrder = 1
     object tbsCadastro: TTabSheet
       Caption = 'Cadastro'
       ClientHeight = 172
-      ClientWidth = 792
+      ClientWidth = 790
       OnEnter = tbsCadastroEnter
       OnExit = tbsCadastroExit
       object dbNavAnalise: TDBNavigator
@@ -192,7 +192,7 @@ object frmPrincipal: TfrmPrincipal
         DataSource = dsAnalise
         ReadOnly = True
         CharCase = ecNormal
-        MaxLength = 255
+        MaxLength = 0
         TabOrder = 4
       end
       object dbeNomeAnalise: TDBEdit
@@ -203,7 +203,7 @@ object frmPrincipal: TfrmPrincipal
         DataField = 'NOME'
         DataSource = dsAnalise
         CharCase = ecNormal
-        MaxLength = 50
+        MaxLength = 0
         TabOrder = 1
       end
       object dbeDataCriacao: TDBEdit
@@ -264,28 +264,26 @@ object frmPrincipal: TfrmPrincipal
         ShowHint = True
         ParentShowHint = False
       end
-      object btDownload: TSpeedButton
-        Left = 748
+      object btExportCSV: TSpeedButton
+        Left = 660
         Height = 32
-        Hint = 'Download CSV'
         Top = 0
-        Width = 32
+        Width = 120
+        Caption = ' Exportar Dados  '
         Images = imgButtons
         ImageIndex = 6
-        OnClick = btDownloadClick
-        ShowHint = True
-        ParentShowHint = False
+        OnClick = btExportCSVClick
       end
     end
     object tbsArbitragem: TTabSheet
       Caption = 'Arbitragem'
       ClientHeight = 172
-      ClientWidth = 792
+      ClientWidth = 790
       object rdgAcoesDeTempo: TRadioGroup
         Left = 0
-        Height = 173
+        Height = 170
         Top = 0
-        Width = 200
+        Width = 135
         AutoFill = True
         Caption = 'Ações de Tempo'
         ChildSizing.LeftRightSpacing = 6
@@ -295,8 +293,8 @@ object frmPrincipal: TfrmPrincipal
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 153
-        ClientWidth = 196
+        ClientHeight = 150
+        ClientWidth = 131
         Items.Strings = (
           'HAJIME'
           'MATE'
@@ -306,10 +304,10 @@ object frmPrincipal: TfrmPrincipal
         TabOrder = 0
       end
       object rdgPontuacao: TRadioGroup
-        Left = 216
-        Height = 173
+        Left = 140
+        Height = 170
         Top = 0
-        Width = 200
+        Width = 135
         AutoFill = True
         Caption = 'Pontuação'
         ChildSizing.LeftRightSpacing = 6
@@ -319,8 +317,8 @@ object frmPrincipal: TfrmPrincipal
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 153
-        ClientWidth = 196
+        ClientHeight = 150
+        ClientWidth = 131
         Items.Strings = (
           'IPPON'
           'WAZA-ARI'
@@ -329,10 +327,10 @@ object frmPrincipal: TfrmPrincipal
         TabOrder = 1
       end
       object rdgSituacao: TRadioGroup
-        Left = 432
-        Height = 173
+        Left = 280
+        Height = 170
         Top = 0
-        Width = 200
+        Width = 135
         AutoFill = True
         Caption = 'Situação'
         ChildSizing.LeftRightSpacing = 6
@@ -342,8 +340,8 @@ object frmPrincipal: TfrmPrincipal
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 1
-        ClientHeight = 153
-        ClientWidth = 196
+        ClientHeight = 150
+        ClientWidth = 131
         Items.Strings = (
           'VENCENDO'
           'PERDENDO'
@@ -351,20 +349,771 @@ object frmPrincipal: TfrmPrincipal
         )
         TabOrder = 2
       end
-      object btLimpaArbitragem: TSpeedButton
-        Left = 752
+      object pgctrlPenalizacao: TPageControl
+        Left = 426
+        Height = 165
+        Top = 5
+        Width = 320
+        ActivePage = tbsDesclassificacao
+        TabIndex = 2
+        TabOrder = 3
+        object tbsPenalidade: TTabSheet
+          Caption = 'Penalidade'
+          ClientHeight = 137
+          ClientWidth = 312
+          object rdgPenalidade: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 314
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 1
+            ClientHeight = 130
+            ClientWidth = 310
+            Items.Strings = (
+              'SHIDO TORI'
+              'SHIDO UKE'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsMotivo: TTabSheet
+          Caption = 'Motivo'
+          ClientHeight = 137
+          ClientWidth = 312
+          object rdgMotivo: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 314
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 2
+            ClientHeight = 130
+            ClientWidth = 310
+            Columns = 2
+            Items.Strings = (
+              'ATAQUE FALSO'
+              'PEGADA IRREGULAR'
+              'SAÍDA DE ÁREA'
+              'FALTA DE COMBATIVIDADE'
+              'OUTRO'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsDesclassificacao: TTabSheet
+          Caption = 'Desclassificação'
+          ClientHeight = 137
+          ClientWidth = 312
+          object rdgDesclassificacao: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 314
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 2
+            ClientHeight = 130
+            ClientWidth = 310
+            Columns = 2
+            Items.Strings = (
+              'HANSOKU-MAKE'
+              'FUSEN-GACHI'
+              'KIKEN-GACHI'
+            )
+            TabOrder = 0
+          end
+        end
+      end
+      object sbtClearRadioBox01: TSpeedButton
+        Left = 754
         Height = 35
-        Top = 136
+        Top = 135
         Width = 35
         Images = imgButtons
         ImageIndex = 7
-        OnClick = btLimpaArbitragemClick
+        OnClick = sbtClearRadioBox01Click
+      end
+    end
+    object tbsAtaque: TTabSheet
+      Caption = 'Ataque'
+      ClientHeight = 172
+      ClientWidth = 790
+      object rdgAtleta: TRadioGroup
+        Left = 0
+        Height = 170
+        Top = 0
+        Width = 135
+        AutoFill = True
+        Caption = 'Atleta'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 150
+        ClientWidth = 131
+        Items.Strings = (
+          'TORI'
+          'UKE'
+        )
+        TabOrder = 0
+      end
+      object sbtClearRadioBox03: TSpeedButton
+        Left = 754
+        Height = 35
+        Top = 135
+        Width = 35
+        Images = imgButtons
+        ImageIndex = 7
+        OnClick = sbtClearRadioBox01Click
+      end
+      object rdgDominando: TRadioGroup
+        Left = 140
+        Height = 170
+        Top = 0
+        Width = 171
+        AutoFill = True
+        Caption = 'Dominando'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 150
+        ClientWidth = 167
+        Items.Strings = (
+          '>= 5s'
+          'RENRAKU-RENKA-WAZA'
+        )
+        TabOrder = 1
+      end
+      object rdgDinamico: TRadioGroup
+        Left = 316
+        Height = 170
+        Top = 0
+        Width = 185
+        AutoFill = True
+        Caption = 'Dinâmico'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 150
+        ClientWidth = 181
+        Items.Strings = (
+          'IMEDIATO (<= 4s)'
+          'DISPUTA DE PEGADA'
+          '1º MÃO FIXA 2º MÃO ATACA'
+        )
+        TabOrder = 2
+      end
+      object rdgOportunista: TRadioGroup
+        Left = 506
+        Height = 170
+        Top = 0
+        Width = 185
+        AutoFill = True
+        Caption = 'Oportunista'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 150
+        ClientWidth = 181
+        Items.Strings = (
+          'RETORNO DO ATAQUE'
+          'UKE AJOELHADO'
+          'KAESHI-WAZA'
+        )
+        TabOrder = 3
+      end
+    end
+    object tbsPegada: TTabSheet
+      Caption = 'Pegada'
+      ClientHeight = 172
+      ClientWidth = 790
+      object rdgMaoDireita: TRadioGroup
+        Left = 0
+        Height = 173
+        Top = 0
+        Width = 300
+        AutoFill = True
+        Caption = 'Mão Direita'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 153
+        ClientWidth = 296
+        Columns = 2
+        Items.Strings = (
+          'D-GOLA'
+          'D-MANGA'
+          'D-GOLA CRUZADA'
+          'D-MANGA CRUZADA'
+          'D-DORSAL CIMA'
+          'D-DORSAL BAIXO'
+          'D-CAVA'
+          'D-SEM PEGADA'
+        )
+        TabOrder = 0
+      end
+      object rdgMaoEsquerda: TRadioGroup
+        Left = 305
+        Height = 173
+        Top = 0
+        Width = 300
+        AutoFill = True
+        Caption = 'Mão Esquerda'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 2
+        ClientHeight = 153
+        ClientWidth = 296
+        Columns = 2
+        Items.Strings = (
+          'E-GOLA'
+          'E-MANGA'
+          'E-GOLA CRUZADA'
+          'E-MANGA CRUZADA'
+          'E-DORSAL CIMA'
+          'E-DORSAL BAIXO'
+          'E-CAVA'
+          'E-SEM PEGADA'
+        )
+        TabOrder = 1
+      end
+      object sbtClearRadioBox02: TSpeedButton
+        Left = 754
+        Height = 35
+        Top = 135
+        Width = 35
+        Images = imgButtons
+        ImageIndex = 7
+        OnClick = sbtClearRadioBox01Click
+      end
+    end
+    object tbsNagewaza: TTabSheet
+      Caption = 'Nage-Waza'
+      ClientHeight = 172
+      ClientWidth = 790
+      object pgctrlNageWaza: TPageControl
+        Left = 0
+        Height = 168
+        Top = 2
+        Width = 750
+        ActivePage = tbsTeWaza
+        TabIndex = 0
+        TabOrder = 0
+        object tbsTeWaza: TTabSheet
+          Caption = 'Te-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgTeWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 4
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 4
+            Items.Strings = (
+              'SEOI-NAGE'
+              'IPPON-SEOI-NAGE'
+              'SEOI-OTOSHI'
+              'TAI-OTOSHI'
+              'KATA-GURUMA'
+              'SUKUI-NAGE'
+              'OBI-OTOSHI'
+              'UKI-OTOSHI'
+              'SUMI-OTOSHI'
+              'YAMA-ARASHI'
+              'OBI-TORI-GAESHI'
+              'MOROTE-GARI'
+              'KUCHIKI-TAOSHI'
+              'KIBISU-GAESHI'
+              'UCHI-MATA-SUKASHI'
+              'KO-UCHI-GAESHI'
+              'ERI-IPPON-SEOI-NAGE'
+              'SUWARI-SEOI-NAGE'
+              'SUWARI-IPPON-SEOI-NAGE'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsKoshiWaza: TTabSheet
+          Caption = 'Koshi-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgKoshiWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 3
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 3
+            Items.Strings = (
+              'UKI-GOSHI'
+              'O-GOSHI'
+              'KOSHI-GURUMA'
+              'TSURIKOMI-GOSHI'
+              'SODE-TSURIKOMI-GOSHI'
+              'HARAI-GOSHI'
+              'TSURI-GOSHI'
+              'HANE-GOSHI'
+              'UTSURI-GOSHI'
+              'USHIRO-GOSHI'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsAshiWaza: TTabSheet
+          Caption = 'Ashi-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgAshiWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 4
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 4
+            Items.Strings = (
+              'DE-ASHI-HARAI'
+              'HIZA-GURUMA'
+              'SASAE-TSURIKOMI-ASHI'
+              'O-SOTO-GARI'
+              'O-UCHI-GARI'
+              'KO-SOTO-GARI'
+              'KO-UCHI-GARI'
+              'OKURI-ASHI-HARAI'
+              'UCHI-MATA'
+              'KO-SOTO-GAKE'
+              'ASHI-GURUMA'
+              'HARAI-TSURIKOMI-ASHI'
+              'O-GURUMA'
+              'O-SOTO-GURUMA'
+              'O-SOTO-OTOSHI'
+              'TSUBAME-GAESHI'
+              'O-SOTO-GAESHI'
+              'O-UCHI-GAESHI'
+              'HANE-GOSHI-GAESHI'
+              'HARAI-GOSHI-GAESHI'
+              'UCHI-MATA-GAESHI'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsMaSutemiWaza: TTabSheet
+          Caption = 'Ma-Sutemi-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgMaSutemiWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 3
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 3
+            Items.Strings = (
+              'TOMOE-NAGE'
+              'SUMI-GAESHI'
+              'HIKIKOMI-GAESHI'
+              'TAWARA-GAESHI'
+              'URA-NAGE'
+              'YOKO-TOMOE-NAGE'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsYokoSutemiWaza: TTabSheet
+          Caption = 'Yoko-Sutemi-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgYokoSutemiWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 4
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 4
+            Items.Strings = (
+              'YOKO-OTOSHI'
+              'TANI-OTOSHI'
+              'HANE-MAKIKOMI'
+              'SOTO-MAKIKOMI'
+              'UCHI-MAKIKOMI'
+              'UKI-WAZA'
+              'YOKO-WAKARE'
+              'YOKO-GURUMA'
+              'YOKO-GAKE'
+              'DAKI-WAKARE'
+              'O-SOTO-MAKIKOMI'
+              'UCHI-MATA-MAKIKOMI'
+              'HARAI-MAKIKOMI'
+              'KO-UCHI-MAKIKOMI'
+              'KANI-BASAMI'
+              'KAWAZU-GAKE'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+      end
+      object sbtClearRadioBox05: TSpeedButton
+        Left = 754
+        Height = 35
+        Top = 135
+        Width = 35
+        Images = imgButtons
+        ImageIndex = 7
+        OnClick = sbtClearRadioBox01Click
+      end
+    end
+    object tbsPosDir: TTabSheet
+      Caption = 'Posicionamento'
+      ClientHeight = 172
+      ClientWidth = 790
+      object rdgPosicao: TRadioGroup
+        Left = 0
+        Height = 173
+        Top = 0
+        Width = 180
+        AutoFill = True
+        Caption = 'Posição'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 153
+        ClientWidth = 176
+        Items.Strings = (
+          'AI-YOTSU DIREITA'
+          'AI-YOTSU ESQUERDA'
+          'KENKA-YOTSU DIREITA'
+          'KENKA-YOTSU ESQUERDA'
+        )
+        TabOrder = 0
+      end
+      object rdgDirecao: TRadioGroup
+        Left = 185
+        Height = 173
+        Top = 0
+        Width = 180
+        AutoFill = True
+        Caption = 'Direção de ataque'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 153
+        ClientWidth = 176
+        Items.Strings = (
+          'PARA TRÁS DIREITA'
+          'PARA TRÁS ESQUERDA'
+          'PARA FRENTE DIREITA'
+          'PARA FRENTE ESQUERDA'
+        )
+        TabOrder = 1
+      end
+      object rdgDeslocamento: TRadioGroup
+        Left = 370
+        Height = 173
+        Top = 0
+        Width = 180
+        AutoFill = True
+        Caption = 'Deslocamento'
+        ChildSizing.LeftRightSpacing = 6
+        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+        ChildSizing.EnlargeVertical = crsHomogenousChildResize
+        ChildSizing.ShrinkHorizontal = crsScaleChilds
+        ChildSizing.ShrinkVertical = crsScaleChilds
+        ChildSizing.Layout = cclLeftToRightThenTopToBottom
+        ChildSizing.ControlsPerLine = 1
+        ClientHeight = 153
+        ClientWidth = 176
+        Items.Strings = (
+          'SEM DESLOCAMENTO'
+          'COM DESLOCAMENTO'
+        )
+        TabOrder = 2
+      end
+      object sbtClearRadioBox04: TSpeedButton
+        Left = 754
+        Height = 35
+        Top = 135
+        Width = 35
+        Images = imgButtons
+        ImageIndex = 7
+        OnClick = sbtClearRadioBox01Click
+      end
+    end
+    object tbsNewaza: TTabSheet
+      Caption = 'Ne-Waza'
+      ClientHeight = 172
+      ClientWidth = 790
+      object pgctrlNeWaza: TPageControl
+        Left = 0
+        Height = 168
+        Top = 2
+        Width = 750
+        ActivePage = tbsTransicao
+        TabIndex = 0
+        TabOrder = 0
+        object tbsTransicao: TTabSheet
+          Caption = 'Transição'
+          ClientHeight = 140
+          ClientWidth = 742
+          Font.CharSet = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -12
+          Font.Name = 'Segoe UI'
+          Font.Pitch = fpVariable
+          Font.Quality = fqDraft
+          ParentFont = False
+          object rdgTransicao: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 3
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 3
+            Items.Strings = (
+              'DIRETA'
+              'SEQUENCIAL'
+              'OPORTUNISTA'
+              'INTENCIONAL'
+              'DEFESA ATIVA'
+              'CONTINUAÇÃO'
+              'NÃO APROVEITADA'
+            )
+            ParentColor = False
+            TabOrder = 0
+          end
+        end
+        object tbsOsaeKomiWaza: TTabSheet
+          Caption = 'Osae-Komi-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgOsaeKomiWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 4
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 4
+            Items.Strings = (
+              'KESA-GATAME'
+              'KUZURE-KESA-GATAME'
+              'USHIRO-KESA-GATAME'
+              'KATA-GATAME'
+              'KAMI-SHIHO-GATAME'
+              'KUZURE-KAMI-SHIHO-GATAME'
+              'YOKO-SHIHO-GATAME'
+              'TATE-SHIHO-GATAME'
+              'UKI-GATAME'
+              'URA-GATAME'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsShimeWaza: TTabSheet
+          Caption = 'Shime-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgShimeWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 4
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 4
+            Items.Strings = (
+              'NAMI-JUJI-JIME'
+              'GYAKU-JUJI-JIME'
+              'KATA-JUJI-JIME'
+              'HADAKA-JIME'
+              'OKURI-ERI-JIME'
+              'KATAHA-JIME'
+              'KATATE-JIME'
+              'RYOTE-JIME'
+              'SODE-GURUMA-JIME'
+              'TSUKKOMI-JIME'
+              'SANKAKU-JIME'
+              'DO-JIME'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+        object tbsKansetsuWaza: TTabSheet
+          Caption = 'Kansetsu-Waza'
+          ClientHeight = 140
+          ClientWidth = 742
+          object rdgKansetsuWaza: TRadioGroup
+            Left = -1
+            Height = 150
+            Top = -8
+            Width = 745
+            AutoFill = True
+            ChildSizing.LeftRightSpacing = 6
+            ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
+            ChildSizing.EnlargeVertical = crsHomogenousChildResize
+            ChildSizing.ShrinkHorizontal = crsScaleChilds
+            ChildSizing.ShrinkVertical = crsScaleChilds
+            ChildSizing.Layout = cclLeftToRightThenTopToBottom
+            ChildSizing.ControlsPerLine = 3
+            ClientHeight = 130
+            ClientWidth = 741
+            Columns = 3
+            Items.Strings = (
+              'UDE-GARAMI'
+              'UDE-HISHIGI-JUJI-GATAME'
+              'UDE-HISHIGI-UDE-GATAME'
+              'UDE-HISHIGI-HIZA-GATAME'
+              'UDE-HISHIGI-WAKI-GATAME'
+              'UDE-HISHIGI-HARA-GATAME'
+              'UDE-HISHIGI-ASHI-GATAME'
+              'UDE-HISHIGI-TE-GATAME'
+              'UDE-HISHIGI-SANKAKU-GATAME'
+              'ASHI-GARAMI'
+              'OUTROS'
+            )
+            TabOrder = 0
+          end
+        end
+      end
+      object sbtClearRadioBox06: TSpeedButton
+        Left = 754
+        Height = 35
+        Top = 135
+        Width = 35
+        Images = imgButtons
+        ImageIndex = 7
+        OnClick = sbtClearRadioBox01Click
       end
     end
     object tbsDeslocamento: TTabSheet
       Caption = 'Deslocamento'
       ClientHeight = 172
-      ClientWidth = 792
+      ClientWidth = 790
       object rdgDeslocaTori: TRadioGroup
         Left = 0
         Height = 173
@@ -390,7 +1139,7 @@ object frmPrincipal: TfrmPrincipal
         TabOrder = 0
       end
       object rdgDeslocaUke: TRadioGroup
-        Left = 200
+        Left = 195
         Height = 173
         Top = 0
         Width = 190
@@ -414,10 +1163,10 @@ object frmPrincipal: TfrmPrincipal
         TabOrder = 1
       end
       object rdgDeslocaFinal: TRadioGroup
-        Left = 400
+        Left = 390
         Height = 173
         Top = 0
-        Width = 304
+        Width = 300
         AutoFill = True
         Caption = 'Deslocamento Final'
         ChildSizing.LeftRightSpacing = 6
@@ -428,7 +1177,7 @@ object frmPrincipal: TfrmPrincipal
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 2
         ClientHeight = 153
-        ClientWidth = 300
+        ClientWidth = 296
         Columns = 2
         Items.Strings = (
           'SEM DESLOCAMENTO'
@@ -441,280 +1190,213 @@ object frmPrincipal: TfrmPrincipal
         )
         TabOrder = 2
       end
-      object btLimpaDeslocamento: TSpeedButton
-        Left = 752
+      object sbtClearRadioBox07: TSpeedButton
+        Left = 754
         Height = 35
-        Top = 136
+        Top = 135
         Width = 35
         Images = imgButtons
         ImageIndex = 7
-        OnClick = btLimpaDeslocamentoClick
-      end
-    end
-    object tbsPosDir: TTabSheet
-      Caption = 'Posição/Direção'
-      ClientHeight = 172
-      ClientWidth = 792
-      object rdgPosicao: TRadioGroup
-        Left = 0
-        Height = 173
-        Top = 0
-        Width = 200
-        AutoFill = True
-        Caption = 'Posição'
-        ChildSizing.LeftRightSpacing = 6
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsScaleChilds
-        ChildSizing.ShrinkVertical = crsScaleChilds
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 1
-        ClientHeight = 153
-        ClientWidth = 196
-        Items.Strings = (
-          'AI-YOTSU DIREITA'
-          'AI-YOTSU ESQUERDA'
-          'KENKA-YOTSU DIREITA'
-          'KENKA-YOTSU ESQUERDA'
-        )
-        TabOrder = 0
-      end
-      object rdgDirecao: TRadioGroup
-        Left = 216
-        Height = 173
-        Top = 0
-        Width = 200
-        AutoFill = True
-        Caption = 'Direção'
-        ChildSizing.LeftRightSpacing = 6
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsScaleChilds
-        ChildSizing.ShrinkVertical = crsScaleChilds
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 1
-        ClientHeight = 153
-        ClientWidth = 196
-        Items.Strings = (
-          'PARA TRÁS DIREITA'
-          'PARA TRÁS ESQUERDA'
-          'PARA FRENTE DIREITA'
-          'PARA FRENTE ESQUERDA'
-        )
-        TabOrder = 1
-      end
-      object btLimpaPosDir: TSpeedButton
-        Left = 752
-        Height = 35
-        Hint = 'Limpar Valores'
-        Top = 136
-        Width = 35
-        Images = imgButtons
-        ImageIndex = 7
-        OnClick = btLimpaPosDirClick
-      end
-    end
-    object tbsPegada: TTabSheet
-      Caption = 'Pegada'
-      ClientHeight = 172
-      ClientWidth = 792
-      object rdgMaoDireita: TRadioGroup
-        Left = 0
-        Height = 173
-        Top = 0
-        Width = 336
-        AutoFill = True
-        Caption = 'Mão Direita'
-        ChildSizing.LeftRightSpacing = 6
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsScaleChilds
-        ChildSizing.ShrinkVertical = crsScaleChilds
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 2
-        ClientHeight = 153
-        ClientWidth = 332
-        Columns = 2
-        Items.Strings = (
-          'D-GOLA'
-          'D-MANGA'
-          'D-GOLA CRUZADA'
-          'D-MANGA CRUZADA'
-          'D-DORSAL CIMA'
-          'D-DORSAL BAIXO'
-          'D-CAVA'
-          'D-SEM PEGADA'
-        )
-        TabOrder = 0
-      end
-      object rdgMaoEsquerda: TRadioGroup
-        Left = 352
-        Height = 173
-        Top = 0
-        Width = 336
-        AutoFill = True
-        Caption = 'Mão Esquerda'
-        ChildSizing.LeftRightSpacing = 6
-        ChildSizing.EnlargeHorizontal = crsHomogenousChildResize
-        ChildSizing.EnlargeVertical = crsHomogenousChildResize
-        ChildSizing.ShrinkHorizontal = crsScaleChilds
-        ChildSizing.ShrinkVertical = crsScaleChilds
-        ChildSizing.Layout = cclLeftToRightThenTopToBottom
-        ChildSizing.ControlsPerLine = 2
-        ClientHeight = 153
-        ClientWidth = 332
-        Columns = 2
-        Items.Strings = (
-          'E-GOLA'
-          'E-MANGA'
-          'E-GOLA CRUZADA'
-          'E-MANGA CRUZADA'
-          'E-DORSAL CIMA'
-          'E-DORSAL BAIXO'
-          'E-CAVA'
-          'E-SEM PEGADA'
-        )
-        TabOrder = 1
-      end
-      object btLimpaPegada: TSpeedButton
-        Left = 752
-        Height = 35
-        Hint = 'Limpar Valores'
-        Top = 136
-        Width = 35
-        Images = imgButtons
-        ImageIndex = 7
-        OnClick = btLimpaPegadaClick
+        OnClick = sbtClearRadioBox01Click
       end
     end
     object tbsEventos: TTabSheet
       Caption = 'Eventos'
       ClientHeight = 172
-      ClientWidth = 792
+      ClientWidth = 790
       OnEnter = tbsEventosEnter
       OnExit = tbsEventosExit
       object dbgEventos: TDBGrid
         Tag = 1
         Left = 0
-        Height = 148
-        Top = 24
-        Width = 792
+        Height = 145
+        Top = 27
+        Width = 790
         Align = alBottom
         Color = clWindow
         Columns = <        
           item
+            Title.Caption = 'DATA_HORA'
+            Width = 83
+            FieldName = 'DATA_HORA'
+          end        
+          item
             ReadOnly = True
             Title.Caption = 'ID_ANALISE'
-            Visible = False
+            Width = 77
             FieldName = 'ID_ANALISE'
           end        
           item
-            Alignment = taCenter
-            Font.CharSet = ANSI_CHARSET
-            Font.Color = clGray
-            Font.Height = -12
-            Font.Name = 'Segoe UI'
-            Font.Pitch = fpVariable
-            Font.Quality = fqDraft
             ReadOnly = True
-            Title.Alignment = taCenter
             Title.Caption = 'ID'
-            Width = 40
+            Width = 26
             FieldName = 'ID_EVENTO'
           end        
           item
             Title.Caption = 'SEC_VIDEO'
-            Visible = False
+            Width = 73
             FieldName = 'SEC_VIDEO'
           end        
           item
-            Alignment = taCenter
             ReadOnly = True
-            Title.Alignment = taCenter
             Title.Caption = 'Vídeo'
-            Width = 50
+            Width = 45
             FieldName = 'VIDEO'
           end        
           item
             Title.Caption = 'SEC_LUTA'
-            Visible = False
+            Width = 68
             FieldName = 'SEC_LUTA'
           end        
           item
-            Alignment = taCenter
             ReadOnly = True
-            Title.Alignment = taCenter
             Title.Caption = 'Luta'
-            Width = 50
+            Width = 38
             FieldName = 'LUTA'
           end        
           item
-            ReadOnly = True
-            Title.Caption = 'Evento de Tempo'
-            Width = 110
+            Title.Caption = 'Ações de Tempo'
+            Width = 103
             FieldName = 'ARBI_TEMPO'
           end        
           item
             Title.Caption = 'Pontuação'
-            Width = 100
+            Width = 72
             FieldName = 'ARBI_PONTUACAO'
           end        
           item
             Title.Caption = 'Situação'
-            Width = 80
+            Width = 60
             FieldName = 'ARBI_SITUACAO'
           end        
           item
-            Title.Caption = 'Deslocamento TORI'
-            Width = 150
-            FieldName = 'DESLOCA_TORI'
+            Title.Caption = 'Penalidade'
+            Width = 73
+            FieldName = 'ARBI_PENALIDADE'
           end        
           item
-            Title.Caption = 'Deslocamento UKE'
-            Width = 150
-            FieldName = 'DESLOCA_UKE'
+            Title.Caption = 'Motivo'
+            Width = 53
+            FieldName = 'ARBI_MOTIVO'
           end        
           item
-            Title.Caption = 'Deslocamento Final'
-            Width = 140
-            FieldName = 'DESLOCA_FINAL'
+            Title.Caption = 'Desclassificação'
+            Width = 100
+            FieldName = 'ARBI_DESCLASSIFICACAO'
           end        
           item
-            Title.Caption = 'Posição'
-            Width = 150
-            FieldName = 'POSICAO'
+            Title.Caption = 'Ataque Atleta'
+            Width = 87
+            FieldName = 'ATAQUE_ATLETA'
           end        
           item
-            Title.Caption = 'Direção'
-            Width = 150
-            FieldName = 'DIRECAO'
+            Title.Caption = 'Ataque Dominando'
+            Width = 119
+            FieldName = 'ATAQUE_DOMINANDO'
+          end        
+          item
+            Title.Caption = 'Ataque Dinâmico'
+            Width = 107
+            FieldName = 'ATAQUE_DINAMICO'
+          end        
+          item
+            Title.Caption = 'Ataque Oportunista'
+            Width = 119
+            FieldName = 'ATAQUE_OPORTUNISTA'
           end        
           item
             Title.Caption = 'Pegada Mão Direita'
-            Width = 130
+            Width = 118
             FieldName = 'PEGADA_DIREITA'
           end        
           item
             Title.Caption = 'Pegada Mão Esquerda'
-            Width = 130
+            Width = 132
             FieldName = 'PEGADA_ESQUERDA'
           end        
           item
-            Alignment = taCenter
-            ReadOnly = True
-            Title.Alignment = taCenter
-            Title.Caption = 'Data'
-            Width = 120
-            FieldName = 'DATA_HORA'
+            Title.Caption = 'Te-Waza'
+            Width = 60
+            FieldName = 'NAGE_TE'
+          end        
+          item
+            Title.Caption = 'Koshi-Waza'
+            Width = 77
+            FieldName = 'NAGE_KOSHI'
+          end        
+          item
+            Title.Caption = 'Ashi-Waza'
+            Width = 71
+            FieldName = 'NAGE_ASHI'
+          end        
+          item
+            Title.Caption = 'Ma-Sutemi-Waza'
+            Width = 107
+            FieldName = 'NAGE_MASUTEMI'
+          end        
+          item
+            Title.Caption = 'Yoko-Sutemi-Waza'
+            Width = 117
+            FieldName = 'NAGE_YOKOSUTEMI'
+          end        
+          item
+            Title.Caption = 'Ne-Waza Transição'
+            Width = 116
+            FieldName = 'NE_TRANSICAO'
+          end        
+          item
+            Title.Caption = 'Osae-Komi-Waza'
+            Width = 107
+            FieldName = 'NE_OSAEKOMI'
+          end        
+          item
+            Title.Caption = 'Shime-Waza'
+            Width = 81
+            FieldName = 'NE_SHIME'
+          end        
+          item
+            Title.Caption = 'Kansetsu-Waza'
+            Width = 95
+            FieldName = 'NE_KANSETSU'
+          end        
+          item
+            Title.Caption = 'Posição'
+            Width = 56
+            FieldName = 'POSICAO'
+          end        
+          item
+            Title.Caption = 'Direção'
+            Width = 55
+            FieldName = 'DIRECAO'
+          end        
+          item
+            Title.Caption = 'Deslocamento'
+            Width = 91
+            FieldName = 'POS_DESLOCAMENTO'
+          end        
+          item
+            Title.Caption = 'Deslocamento TORI'
+            Width = 119
+            FieldName = 'DESLOCA_TORI'
+          end        
+          item
+            Title.Caption = 'Deslocamento UKE'
+            Width = 115
+            FieldName = 'DESLOCA_UKE'
+          end        
+          item
+            Title.Caption = 'Deslocamento Final'
+            Width = 119
+            FieldName = 'DESLOCA_FINAL'
           end>
         DataSource = dsEvento
-        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgDisableInsert, dgRowHighlight, dgDblClickAutoSize]
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColumnMove, dgColLines, dgRowLines, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgAutoSizeColumns, dgDisableInsert, dgRowHighlight, dgDblClickAutoSize]
         TabOrder = 0
         OnCellClick = dbgEventosCellClick
       end
       object dbNavEvento: TDBNavigator
         Left = 0
-        Height = 24
+        Height = 26
         Top = 0
         Width = 241
         BevelOuter = bvNone
@@ -724,7 +1406,7 @@ object frmPrincipal: TfrmPrincipal
         ChildSizing.ShrinkVertical = crsScaleChilds
         ChildSizing.Layout = cclLeftToRightThenTopToBottom
         ChildSizing.ControlsPerLine = 100
-        ClientHeight = 24
+        ClientHeight = 26
         ClientWidth = 241
         DataSource = dsEvento
         Hints.Strings = (
@@ -748,7 +1430,7 @@ object frmPrincipal: TfrmPrincipal
     object tbsReadme: TTabSheet
       Caption = 'Readme'
       ClientHeight = 172
-      ClientWidth = 792
+      ClientWidth = 790
       OnEnter = tbsReadmeEnter
       OnExit = tbsReadmeExit
       object Memo1: TMemo
@@ -786,7 +1468,7 @@ object frmPrincipal: TfrmPrincipal
     object tbsLog: TTabSheet
       Caption = 'LOG/DEBUG'
       ClientHeight = 172
-      ClientWidth = 792
+      ClientWidth = 790
       OnEnter = tbsLogEnter
       OnExit = tbsLogExit
       TabVisible = False
@@ -1090,22 +1772,24 @@ object frmPrincipal: TfrmPrincipal
     AutoEncodeStrings = True
     ClientCodepage = 'UTF8'
     Properties.Strings = (
-      'AutoEncodeStrings=ON'
       'codepage=UTF8'
+      'controls_cp=CP_UTF8'
+      'AutoEncodeStrings=ON'
     )
     Port = 0
+    Database = 'DBJASS.FDB'
     User = 'SYSDBA'
-	Password = 'masterkey'					  
+    Password = 'masterkey'
     Protocol = 'firebirdd-2.5'
-	LibraryLocation = 'fbembed.dll'							   
-    Left = 256
-    Top = 160
+    LibraryLocation = 'fbembed.dll'
+    left = 384
+    top = 160
   end
   object qryGeral: TZQuery
     Connection = fbConnection
     Params = <>
-    Left = 336
-    Top = 160
+    left = 496
+    top = 216
   end
   object tblEvento: TZTable
     Connection = fbConnection
@@ -1114,9 +1798,12 @@ object frmPrincipal: TfrmPrincipal
     BeforeDelete = tblEventoBeforeDelete
     AfterDelete = tblEventoAfterDelete
     TableName = 'EVENTO'
+    MasterFields = 'ID_ANALISE'
+    MasterSource = dsAnalise
+    LinkedFields = 'ID_ANALISE'
     IndexFieldNames = 'SEC_VIDEO Asc, ID_EVENTO Asc'
-    Left = 256
-    Top = 216
+    left = 256
+    top = 216
     object tblEventoID_ANALISE: TLongintField
       FieldKind = fkData
       FieldName = 'ID_ANALISE'
@@ -1243,33 +1930,11 @@ object frmPrincipal: TfrmPrincipal
       Required = False
       Size = 50
     end
-    object tblEventoPOSICAO: TStringField
-      DisplayLabel = 'Posição'
-      FieldKind = fkData
-      FieldName = 'POSICAO'
-      Index = 12
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 50
-    end
-    object tblEventoDIRECAO: TStringField
-      DisplayLabel = 'Direção'
-      FieldKind = fkData
-      FieldName = 'DIRECAO'
-      Index = 13
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      Size = 50
-    end
     object tblEventoPEGADA_DIREITA: TStringField
       DisplayLabel = 'Pegada Mão Direita'
       FieldKind = fkData
       FieldName = 'PEGADA_DIREITA'
-      Index = 14
+      Index = 12
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1280,7 +1945,7 @@ object frmPrincipal: TfrmPrincipal
       DisplayLabel = 'Pegada Mão Esquerda'
       FieldKind = fkData
       FieldName = 'PEGADA_ESQUERDA'
-      Index = 15
+      Index = 13
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1291,22 +1956,212 @@ object frmPrincipal: TfrmPrincipal
       DisplayLabel = 'Data'
       FieldKind = fkData
       FieldName = 'DATA_HORA'
-      Index = 16
+      Index = 14
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
+    object tblEventoARBI_PENALIDADE: TStringField
+      FieldKind = fkData
+      FieldName = 'ARBI_PENALIDADE'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoARBI_MOTIVO: TStringField
+      FieldKind = fkData
+      FieldName = 'ARBI_MOTIVO'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoARBI_DESCLASSIFICACAO: TStringField
+      FieldKind = fkData
+      FieldName = 'ARBI_DESCLASSIFICACAO'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoATAQUE_ATLETA: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_ATLETA'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoPOS_DESLOCAMENTO: TStringField
+      FieldKind = fkData
+      FieldName = 'POS_DESLOCAMENTO'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNAGE_TE: TStringField
+      FieldKind = fkData
+      FieldName = 'NAGE_TE'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNAGE_KOSHI: TStringField
+      FieldKind = fkData
+      FieldName = 'NAGE_KOSHI'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNAGE_ASHI: TStringField
+      FieldKind = fkData
+      FieldName = 'NAGE_ASHI'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNAGE_MASUTEMI: TStringField
+      FieldKind = fkData
+      FieldName = 'NAGE_MASUTEMI'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNAGE_YOKOSUTEMI: TStringField
+      FieldKind = fkData
+      FieldName = 'NAGE_YOKOSUTEMI'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNE_TRANSICAO: TStringField
+      FieldKind = fkData
+      FieldName = 'NE_TRANSICAO'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNE_OSAEKOMI: TStringField
+      FieldKind = fkData
+      FieldName = 'NE_OSAEKOMI'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNE_SHIME: TStringField
+      FieldKind = fkData
+      FieldName = 'NE_SHIME'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoNE_KANSETSU: TStringField
+      FieldKind = fkData
+      FieldName = 'NE_KANSETSU'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoATAQUE_DOMINANDO: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_DOMINANDO'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoATAQUE_DINAMICO: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_DINAMICO'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoATAQUE_OPORTUNISTA: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_OPORTUNISTA'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoPOSICAO: TStringField
+      FieldKind = fkData
+      FieldName = 'POSICAO'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object tblEventoDIRECAO: TStringField
+      FieldKind = fkData
+      FieldName = 'DIRECAO'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
   end
   object dsEvento: TDataSource
     DataSet = tblEvento
-    Left = 256
-    Top = 280
+    left = 256
+    top = 280
   end
   object dsAnalise: TDataSource
     DataSet = tblAnalise
-    Left = 336
-    Top = 280
+    left = 336
+    top = 280
   end
   object tblAnalise: TZTable
     Connection = fbConnection
@@ -1318,8 +2173,8 @@ object frmPrincipal: TfrmPrincipal
     AfterDelete = tblAnaliseAfterDelete
     TableName = 'ANALISE'
     IndexFieldNames = 'ID_ANALISE Asc'
-    Left = 336
-    Top = 216
+    left = 336
+    top = 216
     object tblAnaliseDATA_HORA: TDateTimeField
       FieldKind = fkData
       FieldName = 'DATA_HORA'
@@ -1362,8 +2217,8 @@ object frmPrincipal: TfrmPrincipal
   object imgButtons: TImageList
     Height = 24
     Width = 24
-    Left = 64
-    Top = 160
+    left = 64
+    top = 160
     Bitmap = {
       4C69080000001800000018000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -1949,11 +2804,584 @@ object frmPrincipal: TfrmPrincipal
     Title = 'Localizar Vídeo'
     Filter = 'Videos|*.3g2;*.3gp;*.3gp2;*.3gpp;*.amv;*.asf;*.avi;*.bik;*.divx;*.drc;*.dv;*.dvr-ms;*.evo;*.f4v;*.flv;*.gvi;*.gxf;*.m1v;*.m2t;*.m2v;*.m2ts;*.m4v;*.mkv;*.mov;*.mp2v;*.mp4;*.mp4v;*.mpa;*.mpe;*.mpeg;*.mpeg1;*.mpeg2;*.mpeg4;*.mpg;*.mpv2;*.mts;*.mtv;*.mxf;*.nsv;*.nuv;*.ogg;*.ogm;*.ogx;*.ogv;*.rec;*.rm;*.rmvb;*.rpl;*.thp;*.tod;*.tp;*.ts;*.tts;*.vob;*.vro;*.webm;*.wmv;*.wtv;*.xesc|3g2|*.3g2|3gp|*.3gp|3gp2|*.3gp2|3gpp|*.3gpp|amv|*.amv|asf|*.asf|avi|*.avi|bik|*.bik|divx|*.divx|drc|*.drc|dv|*.dv|dvr-ms|*.dvr-ms|evo|*.evo|f4v|*.f4v|flv|*.flv|gvi|*.gvi|gxf|*.gxf|m1v|*.m1v|m2t|*.m2t|m2v|*.m2v|m2ts|*.m2ts|m4v|*.m4v|mkv|*.mkv|mov|*.mov|mp2v|*.mp2v|mp4|*.mp4|mp4v|*.mp4v|mpa|*.mpa|mpe|*.mpe|mpeg|*.mpeg|mpeg1|*.mpeg1|mpeg2|*.mpeg2|mpeg4|*.mpeg4|mpg|*.mpg|mpv2|*.mpv2|mts|*.mts|mtv|*.mtv|mxf|*.mxf|nsv|*.nsv|nuv|*.nuv|ogg|*.ogg|ogm|*.ogm|ogx|*.ogx|ogv|*.ogv|rec|*.rec|rm|*.rm|rmvb|*.rmvb|rpl|*.rpl|thp|*.thp|tod|*.tod|tp|*.tp|ts|*.ts|tts|*.tts|vob|*.vob|vro|*.vro|webm|*.webm|wmv|*.wmv|wtv|*.wtv|xesc|*.xesc'
     Options = [ofFileMustExist, ofEnableSizing, ofViewDetail]
-    Left = 136
-    Top = 160
+    left = 136
+    top = 160
   end
   object PasLibVlcMediaList1: TPasLibVlcMediaList
-    Left = 104
-    Top = 96
+    left = 104
+    top = 96
+  end
+  object CSVExporter: TCSVExporter
+    FileName = 'jass'
+    Dataset = qryExport
+    ExportFields = <    
+      item
+        FieldName = 'ID_ANALISE'
+        ExportedName = 'id_analise'
+      end    
+      item
+        FieldName = 'NOME'
+        ExportedName = 'Analise'
+      end    
+      item
+        FieldName = 'VIDEO'
+        ExportedName = 'Vídeo'
+      end    
+      item
+        FieldName = 'ID_EVENTO'
+        ExportedName = 'id_evento'
+      end    
+      item
+        FieldName = 'VIDEO_TIMER'
+        ExportedName = 'Cronometro_Video'
+      end    
+      item
+        FieldName = 'LUTA_TIMER'
+        ExportedName = 'Cronometro_Luta'
+      end    
+      item
+        FieldName = 'ACOES_TEMPO'
+        ExportedName = 'Arbitragem_Tempo'
+      end    
+      item
+        FieldName = 'PONTUACAO'
+        ExportedName = 'Arbitragem_Pontuacao'
+      end    
+      item
+        FieldName = 'SITUACAO'
+        ExportedName = 'Arbitragem_Situacao'
+      end    
+      item
+        FieldName = 'PENALIDADE'
+        ExportedName = 'Arbitragem_Penalidade'
+      end    
+      item
+        FieldName = 'MOTIVO'
+        ExportedName = 'Arbitragem_Motivo'
+      end    
+      item
+        FieldName = 'DESCLASSIFICACAO'
+        ExportedName = 'Arbitragem_Desclassificacao'
+      end    
+      item
+        FieldName = 'ATAQUE_ATLETA'
+        ExportedName = 'Ataque_Atleta'
+      end    
+      item
+        FieldName = 'ATAQUE_DOMINANDO'
+        ExportedName = 'Ataque_Dominando'
+      end    
+      item
+        FieldName = 'ATAQUE_DINAMICO'
+        ExportedName = 'Ataque_Dinamico'
+      end    
+      item
+        FieldName = 'ATAQUE_OPORTUNISTA'
+        ExportedName = 'Ataque_Oportunista'
+      end    
+      item
+        FieldName = 'PEGADA_DIREITA'
+        ExportedName = 'Pegada_Direita'
+      end    
+      item
+        FieldName = 'PEGADA_ESQUERDA'
+        ExportedName = 'Pegada_Esquerda'
+      end    
+      item
+        FieldName = 'TE_WAZA'
+        ExportedName = 'Te-Waza'
+      end    
+      item
+        FieldName = 'KOSHI_WAZA'
+        ExportedName = 'Koshi-Waza'
+      end    
+      item
+        FieldName = 'ASHI_WAZA'
+        ExportedName = 'Ashi-Waza'
+      end    
+      item
+        FieldName = 'MA_SUTEMI_WAZA'
+        ExportedName = 'Ma-Sutemi-Waza'
+      end    
+      item
+        FieldName = 'YOKO_SUTEMI_WAZA'
+        ExportedName = 'Yoko-Sutemi-Waza'
+      end    
+      item
+        FieldName = 'NE_WAZA_TRANSICAO'
+        ExportedName = 'Ne-Waza_Transicao'
+      end    
+      item
+        FieldName = 'OSAE_KOMI_WAZA'
+        ExportedName = 'Osae-Komi-Waza'
+      end    
+      item
+        FieldName = 'SHIME_WAZA'
+        ExportedName = 'Shime-Waza'
+      end    
+      item
+        FieldName = 'KANSETSU_WAZA'
+        ExportedName = 'Kansetsu-Waza'
+      end    
+      item
+        FieldName = 'POSICAO'
+        ExportedName = 'Pos_Posicao'
+      end    
+      item
+        FieldName = 'DIRECAO'
+        ExportedName = 'Pos_Direcao'
+      end    
+      item
+        FieldName = 'DESLOCAMENTO'
+        ExportedName = 'Pos_Deslocamento'
+      end    
+      item
+        FieldName = 'DESLOCA_TORI'
+        ExportedName = 'Aproximacao_Tori'
+      end    
+      item
+        FieldName = 'DESLOCA_UKE'
+        ExportedName = 'Aproximacao_Uke'
+      end    
+      item
+        FieldName = 'DESLOCA_FINAL'
+        ExportedName = 'Deslocamento_Final'
+      end    
+      item
+        FieldName = 'DT_EVENTO'
+        ExportedName = 'datahora_evento'
+      end    
+      item
+        FieldName = 'DT_ANALISE'
+        ExportedName = 'datahora_analise'
+      end    
+      item
+        FieldName = 'SEC_VIDEO'
+        ExportedName = 'Crono_Video_Segundos'
+      end    
+      item
+        FieldName = 'SEC_LUTA'
+        ExportedName = 'Crono_Luta_Segundos'
+      end>
+    RestorePosition = False
+    FormatSettings.DecimalSeparator = #0
+    FormatSettings.CurrencyDigits = 0
+    FormatSettings.FieldDelimiter = ';'
+    FormatSettings.IgnoreOuterWhitespace = False
+    FormatSettings.RowDelimiter = #13#10
+    FormatSettings.QuoteChar = '"'
+    left = 424
+    top = 280
+  end
+  object qryExport: TZQuery
+    Connection = fbConnection
+    OnCalcFields = qryExportCalcFields
+    SQL.Strings = (
+      'SELECT'
+      '    a.id_analise,'
+      #9'a.data_hora AS dt_analise,'
+      #9'a.nome,'
+      #9'a.video,'
+      '    e.id_evento,'
+      #9'e.data_hora AS dt_evento,'
+      #9'e.sec_video,'
+      #9'e.sec_luta,'
+      #9'e.arbi_tempo AS acoes_tempo,'
+      #9'e.arbi_pontuacao AS pontuacao,'
+      #9'e.arbi_situacao AS situacao,'
+      #9'e.arbi_penalidade AS penalidade,'
+      #9'e.arbi_motivo motivo,'
+      #9'e.arbi_desclassificacao AS desclassificacao,'
+      #9'e.ataque_atleta AS ataque_atleta,'
+      #9'e.ataque_dominando AS ataque_dominando,'
+      #9'e.ataque_dinamico AS ataque_dinamico,'
+      #9'e.ataque_oportunista AS ataque_oportunista,'
+      #9'e.pegada_direita,'
+      #9'e.pegada_esquerda,'
+      #9'e.nage_te AS Te_Waza,'
+      #9'e.nage_koshi AS Koshi_Waza,'
+      #9'e.nage_ashi AS Ashi_Waza,'
+      #9'e.nage_masutemi AS Ma_Sutemi_Waza,'
+      #9'e.nage_yokosutemi AS Yoko_Sutemi_Waza,'
+      #9'e.ne_transicao AS Ne_Waza_TransiCAo,'
+      #9'e.ne_osaekomi AS Osae_Komi_Waza,'
+      #9'e.ne_shime AS Shime_Waza,'
+      #9'e.ne_kansetsu AS Kansetsu_Waza,'
+      #9'e.posicao,'
+      #9'e.direcao,'
+      #9'e.pos_deslocamento AS deslocamento,'
+      #9'e.desloca_tori,'
+      #9'e.desloca_uke,'
+      #9'e.desloca_final'
+      '    FROM EVENTO e RIGHT JOIN ANALISE a on'
+      '    (a.ID_ANALISE = e.ID_ANALISE) ORDER BY a.ID_ANALISE, e.ID_EVENTO'
+    )
+    Params = <>
+    left = 424
+    top = 216
+    object qryExportID_ANALISE: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID_ANALISE'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryExportDT_ANALISE: TDateTimeField
+      FieldKind = fkData
+      FieldName = 'DT_ANALISE'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryExportNOME: TStringField
+      FieldKind = fkData
+      FieldName = 'NOME'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 400
+    end
+    object qryExportVIDEO: TStringField
+      FieldKind = fkData
+      FieldName = 'VIDEO'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 1200
+    end
+    object qryExportID_EVENTO: TLongintField
+      FieldKind = fkData
+      FieldName = 'ID_EVENTO'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = True
+    end
+    object qryExportDT_EVENTO: TDateTimeField
+      FieldKind = fkData
+      FieldName = 'DT_EVENTO'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryExportSEC_VIDEO: TLongintField
+      FieldKind = fkData
+      FieldName = 'SEC_VIDEO'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryExportVIDEO_TIMER: TStringField
+      DisplayLabel = 'Cronometro_Video'
+      FieldKind = fkCalculated
+      FieldName = 'VIDEO_TIMER'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryExportSEC_LUTA: TLongintField
+      FieldKind = fkData
+      FieldName = 'SEC_LUTA'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryExportLUTA_TIMER: TStringField
+      DisplayLabel = 'Cronometro_Luta'
+      FieldKind = fkCalculated
+      FieldName = 'LUTA_TIMER'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object qryExportACOES_TEMPO: TStringField
+      FieldKind = fkData
+      FieldName = 'ACOES_TEMPO'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportPONTUACAO: TStringField
+      FieldKind = fkData
+      FieldName = 'PONTUACAO'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportSITUACAO: TStringField
+      FieldKind = fkData
+      FieldName = 'SITUACAO'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportPENALIDADE: TStringField
+      FieldKind = fkData
+      FieldName = 'PENALIDADE'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportMOTIVO: TStringField
+      FieldKind = fkData
+      FieldName = 'MOTIVO'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportDESCLASSIFICACAO: TStringField
+      FieldKind = fkData
+      FieldName = 'DESCLASSIFICACAO'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportATAQUE_ATLETA: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_ATLETA'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportATAQUE_DOMINANDO: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_DOMINANDO'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportATAQUE_DINAMICO: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_DINAMICO'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportATAQUE_OPORTUNISTA: TStringField
+      FieldKind = fkData
+      FieldName = 'ATAQUE_OPORTUNISTA'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportPEGADA_DIREITA: TStringField
+      FieldKind = fkData
+      FieldName = 'PEGADA_DIREITA'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportPEGADA_ESQUERDA: TStringField
+      FieldKind = fkData
+      FieldName = 'PEGADA_ESQUERDA'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportTE_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'TE_WAZA'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportKOSHI_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'KOSHI_WAZA'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportASHI_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'ASHI_WAZA'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportMA_SUTEMI_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'MA_SUTEMI_WAZA'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportYOKO_SUTEMI_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'YOKO_SUTEMI_WAZA'
+      Index = 26
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportNE_WAZA_TRANSICAO: TStringField
+      FieldKind = fkData
+      FieldName = 'NE_WAZA_TRANSICAO'
+      Index = 27
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportOSAE_KOMI_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'OSAE_KOMI_WAZA'
+      Index = 28
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportSHIME_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'SHIME_WAZA'
+      Index = 29
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportKANSETSU_WAZA: TStringField
+      FieldKind = fkData
+      FieldName = 'KANSETSU_WAZA'
+      Index = 30
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportPOSICAO: TStringField
+      FieldKind = fkData
+      FieldName = 'POSICAO'
+      Index = 31
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportDIRECAO: TStringField
+      FieldKind = fkData
+      FieldName = 'DIRECAO'
+      Index = 32
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportDESLOCAMENTO: TStringField
+      FieldKind = fkData
+      FieldName = 'DESLOCAMENTO'
+      Index = 33
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportDESLOCA_TORI: TStringField
+      FieldKind = fkData
+      FieldName = 'DESLOCA_TORI'
+      Index = 34
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportDESLOCA_UKE: TStringField
+      FieldKind = fkData
+      FieldName = 'DESLOCA_UKE'
+      Index = 35
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
+    object qryExportDESLOCA_FINAL: TStringField
+      FieldKind = fkData
+      FieldName = 'DESLOCA_FINAL'
+      Index = 36
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 200
+    end
   end
 end

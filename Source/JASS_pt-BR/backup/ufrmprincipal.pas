@@ -26,19 +26,17 @@ unit ufrmPrincipal;
 interface
 
 uses
-  Classes, SysUtils, DB, Forms, Controls, Graphics, Dialogs, ComCtrls, ExtCtrls,
-  StdCtrls, ZConnection, ZDataset, LCLType, DBGrids, DBCtrls,
-  Buttons, PasLibVlcPlayerUnit, fileinfo, winpeimagereader;
+  Classes, SysUtils, DB, csvdataset, fpcsvexport, Forms, Controls, Graphics,
+  Dialogs, ComCtrls, ExtCtrls, StdCtrls, ZConnection, ZDataset, LCLType,
+  DBGrids, DBCtrls, Buttons, PasLibVlcPlayerUnit, fileinfo, winpeimagereader, fpDBExport;
 
 type
 
   { TfrmPrincipal }
 
   TfrmPrincipal = class(TForm)
-    btLimpaPegada: TSpeedButton;
-    btLimpaPosDir: TSpeedButton;
-    btLimpaDeslocamento: TSpeedButton;
     btDebugArrs: TButton;
+    CSVExporter: TCSVExporter;
     dbeIdAnalise: TDBEdit;
     dbeVideoPath: TDBEdit;
     dbeNomeAnalise: TDBEdit;
@@ -70,15 +68,113 @@ type
     Memo1: TMemo;
     memoDebug: TMemo;
     odVideo: TOpenDialog;
+    pgctrlPenalizacao: TPageControl;
+    pgctrlNageWaza: TPageControl;
+    pgctrlNeWaza: TPageControl;
     pnVideoLoading: TPanel;
     PasLibVlcMediaList1: TPasLibVlcMediaList;
+    qryExportACOES_TEMPO: TStringField;
+    qryExportASHI_WAZA: TStringField;
+    qryExportATAQUE_ATLETA: TStringField;
+    qryExportATAQUE_DINAMICO: TStringField;
+    qryExportATAQUE_DOMINANDO: TStringField;
+    qryExportATAQUE_OPORTUNISTA: TStringField;
+    qryExportDESCLASSIFICACAO: TStringField;
+    qryExportDESLOCAMENTO: TStringField;
+    qryExportDESLOCA_FINAL: TStringField;
+    qryExportDESLOCA_TORI: TStringField;
+    qryExportDESLOCA_UKE: TStringField;
+    qryExportDIRECAO: TStringField;
+    qryExportDT_ANALISE: TDateTimeField;
+    qryExportDT_EVENTO: TDateTimeField;
+    qryExportID_ANALISE: TLongintField;
+    qryExportID_EVENTO: TLongintField;
+    qryExportKANSETSU_WAZA: TStringField;
+    qryExportKOSHI_WAZA: TStringField;
+    qryExportLUTA_TIMER: TStringField;
+    qryExportMA_SUTEMI_WAZA: TStringField;
+    qryExportMOTIVO: TStringField;
+    qryExportNE_WAZA_TRANSICAO: TStringField;
+    qryExportNOME: TStringField;
+    qryExportOSAE_KOMI_WAZA: TStringField;
+    qryExportPEGADA_DIREITA: TStringField;
+    qryExportPEGADA_ESQUERDA: TStringField;
+    qryExportPENALIDADE: TStringField;
+    qryExportPONTUACAO: TStringField;
+    qryExportPOSICAO: TStringField;
+    qryExportSEC_LUTA: TLongintField;
+    qryExportSEC_VIDEO: TLongintField;
+    qryExportSHIME_WAZA: TStringField;
+    qryExportSITUACAO: TStringField;
+    qryExportTE_WAZA: TStringField;
+    qryExportVIDEO: TStringField;
+    qryExportVIDEO_TIMER: TStringField;
+    qryExportYOKO_SUTEMI_WAZA: TStringField;
+    rdgDinamico: TRadioGroup;
+    rdgOportunista: TRadioGroup;
+    rdgDominando: TRadioGroup;
+    rdgDeslocamento: TRadioGroup;
+    rdgAshiWaza: TRadioGroup;
+    rdgDesclassificacao: TRadioGroup;
+    rdgMaSutemiWaza: TRadioGroup;
+    rdgMotivo: TRadioGroup;
+    rdgPenalidade: TRadioGroup;
+    rdgYokoSutemiWaza: TRadioGroup;
+    rdgTeWaza: TRadioGroup;
+    rdgAtleta: TRadioGroup;
+    rdgKoshiWaza: TRadioGroup;
+    rdgTransicao: TRadioGroup;
+    rdgOsaeKomiWaza: TRadioGroup;
+    rdgShimeWaza: TRadioGroup;
+    rdgKansetsuWaza: TRadioGroup;
+    sbtClearRadioBox01: TSpeedButton;
+    sbtClearRadioBox02: TSpeedButton;
+    sbtClearRadioBox03: TSpeedButton;
+    sbtClearRadioBox04: TSpeedButton;
+    sbtClearRadioBox07: TSpeedButton;
+    sbtClearRadioBox05: TSpeedButton;
+    sbtClearRadioBox06: TSpeedButton;
+    btExportCSV: TSpeedButton;
+    tblEventoARBI_DESCLASSIFICACAO: TStringField;
+    tblEventoARBI_MOTIVO: TStringField;
+    tblEventoARBI_PENALIDADE: TStringField;
+    tblEventoATAQUE_ATLETA: TStringField;
+    tblEventoATAQUE_DOMINANDO: TStringField;
+    tblEventoATAQUE_DINAMICO: TStringField;
+    tblEventoATAQUE_OPORTUNISTA: TStringField;
+    tblEventoNAGE_ASHI: TStringField;
+    tblEventoNAGE_KOSHI: TStringField;
+    tblEventoNAGE_MASUTEMI: TStringField;
+    tblEventoNAGE_TE: TStringField;
+    tblEventoNAGE_YOKOSUTEMI: TStringField;
+    tblEventoNE_KANSETSU: TStringField;
+    tblEventoNE_OSAEKOMI: TStringField;
+    tblEventoNE_SHIME: TStringField;
+    tblEventoNE_TRANSICAO: TStringField;
+    tblEventoPOS_DESLOCAMENTO: TStringField;
+    tblEventoDIRECAO: TStringField;
+    tblEventoPOSICAO: TStringField;
+    tbsPenalidade: TTabSheet;
+    tbsMotivo: TTabSheet;
+    tbsDesclassificacao: TTabSheet;
+    tbsTeWaza: TTabSheet;
+    tbsKoshiWaza: TTabSheet;
+    tbsMaSutemiWaza: TTabSheet;
+    tbsYokoSutemiWaza: TTabSheet;
+    tbsAtaque: TTabSheet;
+    tbsAshiWaza: TTabSheet;
+    tbsNewaza: TTabSheet;
+    tbsTransicao: TTabSheet;
+    tbsOsaeKomiWaza: TTabSheet;
+    tbsShimeWaza: TTabSheet;
+    tbsKansetsuWaza: TTabSheet;
+    tbsNagewaza: TTabSheet;
     tblEventoID_ANALISE: TLongintField;
     tblEventoLUTA: TStringField;
     tblEventoVIDEO: TStringField;
     vlcPlayer: TPasLibVlcPlayer;
     pgctrlDados: TPageControl;
     btOpenVideo: TSpeedButton;
-    btDownload: TSpeedButton;
     btPlayPause: TSpeedButton;
     btMenosUmSec: TSpeedButton;
     btMaisUmSec: TSpeedButton;
@@ -93,7 +189,6 @@ type
     rdgSituacao: TRadioGroup;
     rdgPontuacao: TRadioGroup;
     rdgAcoesDeTempo: TRadioGroup;
-    btLimpaArbitragem: TSpeedButton;
     tblAnaliseDATA_HORA: TDateTimeField;
     tblAnaliseID_ANALISE: TLongintField;
     tblAnaliseNOME: TStringField;
@@ -105,11 +200,9 @@ type
     tblEventoDESLOCA_FINAL: TStringField;
     tblEventoDESLOCA_TORI: TStringField;
     tblEventoDESLOCA_UKE: TStringField;
-    tblEventoDIRECAO: TStringField;
     tblEventoID_EVENTO: TLongintField;
     tblEventoPEGADA_DIREITA: TStringField;
     tblEventoPEGADA_ESQUERDA: TStringField;
-    tblEventoPOSICAO: TStringField;
     tblEventoSEC_LUTA: TLongintField;
     tblEventoSEC_VIDEO: TLongintField;
     tbsLog: TTabSheet;
@@ -123,13 +216,10 @@ type
     qryGeral: TZQuery;
     tblEvento: TZTable;
     tblAnalise: TZTable;
+    qryExport: TZQuery;
     procedure btDebugArrsClick(Sender: TObject);
-    procedure btDownloadClick(Sender: TObject);
+    procedure btExportCSVClick(Sender: TObject);
     procedure btGravarEventoClick(Sender: TObject);
-    procedure btLimpaArbitragemClick(Sender: TObject);
-    procedure btLimpaDeslocamentoClick(Sender: TObject);
-    procedure btLimpaPegadaClick(Sender: TObject);
-    procedure btLimpaPosDirClick(Sender: TObject);
     procedure btMaisUmSecClick(Sender: TObject);
     procedure btMenosUmSecClick(Sender: TObject);
     procedure btOpenVideoClick(Sender: TObject);
@@ -141,6 +231,8 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure odVideoClose(Sender: TObject);
+    procedure qryExportCalcFields(DataSet: TDataSet);
+    procedure sbtClearRadioBox01Click(Sender: TObject);
     procedure tblAnaliseAfterCancel(DataSet: TDataSet);
     procedure tblAnaliseAfterDelete(DataSet: TDataSet);
     procedure tblAnaliseAfterInsert(DataSet: TDataSet);
@@ -162,9 +254,21 @@ type
     procedure prcLog(txtLog: string);
     procedure prcClearAcaoTempo();
     procedure prcClearArbitragem();
-    procedure prcClearDeslocamento();
-    procedure prcClearPosDir();
     procedure prcClearPegada();
+    procedure prcClearAtaque();
+    procedure prcClearPosDir();
+    procedure prcClearNageWaza();
+    procedure prcClearTeWaza();
+    procedure prcClearKoshiWaza();
+    procedure prcClearAshiWaza();
+    procedure prcClearMaSutemiWaza();
+    procedure prcClearYokoSutemiWaza();
+    procedure prcClearNeWaza();
+    procedure prcClearTransicao();
+    procedure prcClearOsaeKomiWaza();
+    procedure prcClearShimeWaza();
+    procedure prcClearKansetsuWaza();
+    procedure prcClearDeslocamento();
     procedure prcClearAllRadios();
     procedure prcRefreshEvento();
     procedure prcBtControleEnable(sts: boolean);
@@ -181,6 +285,7 @@ type
     procedure prcExibeVersaoAtual();
     procedure prcAddEvento(acao_tempo: longint);
     procedure prcRefreshAcaoTempo(acao: string);
+    procedure prcAddFieldEvento(fieldIn: string);
     function getFightCurrentIndex(posMs: longint): longint;
     function getAcaoTempoByIndex(arbi_tempo: string): longint;
     function getIndexByAcaoTempo(arbi_tempo: longint): string;
@@ -214,14 +319,34 @@ procedure TfrmPrincipal.FormCreate(Sender: TObject);
 var
   dbName: string;
 begin
+  {
+  Antes de colcoar em PROD, ajustar esses parâmetros nos componentes:
+  - fbConnection.Database
+  - fbConnection.LibraryLocation
+  - fbConnection.Connected
+  - tblEvento.Active
+  - tblAnalise.Active
+  - qryGeral.Active
+  }
 
   {Configurações iniciais da conexão}
   dbName := Application.Location + 'dbjass.fdb';
-  fbConnection.User := 'SYSDBA';
-  fbConnection.Password := 'masterkey';
-  fbConnection.Protocol := 'firebird-2.5';
-  fbConnection.LibraryLocation := 'fbembed.dll';
   fbConnection.Database := dbName;
+
+  {Verifica se entra no modo de Debug/Log}
+  vLog := False;
+  if FileExists(Application.Location + 'debug') then
+  begin
+    tbsLog.TabVisible := True;
+    vLog := True;
+  end
+  else
+  begin
+    dbgEventos.Columns.Items[0].Visible := False; //DATA_HORA
+    dbgEventos.Columns.Items[1].Visible := False; //ID_ANALISE
+    dbgEventos.Columns.Items[3].Visible := False; //SEC_VIDEO
+    dbgEventos.Columns.Items[5].Visible := False; //SEC_LUTA
+  end;
 
   {Verifica se a base de dados existe}
   if not FileExists(dbName) then
@@ -352,13 +477,30 @@ begin
         qryGeral.SQL.Add('arbi_tempo VARCHAR(50),');
         qryGeral.SQL.Add('arbi_pontuacao VARCHAR(50),');
         qryGeral.SQL.Add('arbi_situacao VARCHAR(50),');
+        qryGeral.SQL.Add('arbi_penalidade VARCHAR(50),');
+        qryGeral.SQL.Add('arbi_motivo VARCHAR(50),');
+        qryGeral.SQL.Add('arbi_desclassificacao VARCHAR(50),');
+        qryGeral.SQL.Add('pegada_direita VARCHAR(50),');
+        qryGeral.SQL.Add('pegada_esquerda VARCHAR(50),');
+        qryGeral.SQL.Add('ataque_atleta VARCHAR(50),');
+        qryGeral.SQL.Add('ataque_dominando VARCHAR(50),');
+        qryGeral.SQL.Add('ataque_dinamico VARCHAR(50),');
+        qryGeral.SQL.Add('ataque_oportunista VARCHAR(50),');
+        qryGeral.SQL.Add('posicao VARCHAR(50),');
+        qryGeral.SQL.Add('direcao VARCHAR(50),');
+        qryGeral.SQL.Add('pos_deslocamento VARCHAR(50),');
+        qryGeral.SQL.Add('nage_te VARCHAR(50),');
+        qryGeral.SQL.Add('nage_koshi VARCHAR(50),');
+        qryGeral.SQL.Add('nage_ashi VARCHAR(50),');
+        qryGeral.SQL.Add('nage_masutemi VARCHAR(50),');
+        qryGeral.SQL.Add('nage_yokosutemi VARCHAR(50),');
+        qryGeral.SQL.Add('ne_transicao VARCHAR(50),');
+        qryGeral.SQL.Add('ne_osaekomi VARCHAR(50),');
+        qryGeral.SQL.Add('ne_shime VARCHAR(50),');
+        qryGeral.SQL.Add('ne_kansetsu VARCHAR(50),');
         qryGeral.SQL.Add('desloca_tori VARCHAR(50),');
         qryGeral.SQL.Add('desloca_uke VARCHAR(50),');
         qryGeral.SQL.Add('desloca_final VARCHAR(50),');
-        qryGeral.SQL.Add('posicao VARCHAR(50),');
-        qryGeral.SQL.Add('direcao VARCHAR(50),');
-        qryGeral.SQL.Add('pegada_direita VARCHAR(50),');
-        qryGeral.SQL.Add('pegada_esquerda VARCHAR(50),');
         qryGeral.SQL.Add('PRIMARY KEY (id_evento)');
         qryGeral.SQL.Add(');');
         qryGeral.Prepare;
@@ -396,8 +538,29 @@ begin
           Application.Terminate;
         end
       end;
-    end;
+    end
+    else
+    begin
+      prcLog('Adequando a tabela EVENTO para retrocompatibilidade');
 
+      prcAddFieldEvento('arbi_penalidade');
+      prcAddFieldEvento('arbi_motivo');
+      prcAddFieldEvento('arbi_desclassificacao');
+      prcAddFieldEvento('ataque_atleta');
+      prcAddFieldEvento('ataque_dominando');
+      prcAddFieldEvento('ataque_dinamico');
+      prcAddFieldEvento('ataque_oportunista');
+      prcAddFieldEvento('pos_deslocamento');
+      prcAddFieldEvento('nage_te');
+      prcAddFieldEvento('nage_koshi');
+      prcAddFieldEvento('nage_ashi');
+      prcAddFieldEvento('nage_masutemi');
+      prcAddFieldEvento('nage_yokosutemi');
+      prcAddFieldEvento('ne_transicao');
+      prcAddFieldEvento('ne_osaekomi');
+      prcAddFieldEvento('ne_shime');
+      prcAddFieldEvento('ne_kansetsu');
+    end;
   except
     on E: Exception do
     begin
@@ -424,6 +587,9 @@ begin
   {Inicialização Geral}
   self.DouBleBuffered := True;
   pgctrlDados.TabIndex := 0;
+  pgctrlPenalizacao.TabIndex := 0;
+  pgctrlNageWaza.TabIndex := 0;
+  pgctrlNeWaza.TabIndex := 0;
   pnVideoLoading.Visible := False;
   vlcPlayer.Tag := 1;
   dbgEventos.Tag := 1;
@@ -433,23 +599,8 @@ begin
   timerVideoMs := 0;
   prcBtControleEnable(False);
 
-  {Verifica se entra no modo de Debug/Log}
-  vLog := False;
-  if FileExists(Application.Location + 'debug') then
-  begin
-    tbsLog.TabVisible := True;
-    dbgEventos.Columns.Items[0].Visible := True; //ID_ANALISE
-    dbgEventos.Columns.Items[2].Visible := True; //SEC_VIDEO
-    dbgEventos.Columns.Items[4].Visible := True; //SEC_LUTA
-    vLog := True;
-  end;
-
-  {Atualiza a versão da aplicação}
-  //prcExibeVersaoAtual();
-
   {Adiciona um novo Registro Assim que inicializa o programa}
   tblAnalise.Insert;
-
 end;
 
 procedure TfrmPrincipal.dbeIdAnaliseChange(Sender: TObject);
@@ -475,18 +626,13 @@ end;
 
 procedure TfrmPrincipal.dbgEventosCellClick(Column: TColumn);
 begin
-  if Column = dbgEventos.Columns[1] then
+  if Column = dbgEventos.Columns[2] then
   begin
     if dbgEventos.Tag = 0 then
     begin
       vlcPlayer.SetVideoPosInMs(tblEvento.FieldByName('SEC_VIDEO').AsInteger);
     end;
   end;
-end;
-
-procedure TfrmPrincipal.btLimpaArbitragemClick(Sender: TObject);
-begin
-  prcClearArbitragem();
 end;
 
 procedure TfrmPrincipal.btGravarEventoClick(Sender: TObject);
@@ -510,102 +656,28 @@ begin
   end;
 end;
 
-procedure TfrmPrincipal.btDownloadClick(Sender: TObject);
-var
-  exportObj: TStringList;
-  exportName: string;
-  time_luta: string;
-  time_video: string;
-  t_luta: integer;
-  t_video: integer;
+procedure TfrmPrincipal.btExportCSVClick(Sender: TObject);
 begin
-
-  exportName := Application.Location + 'jass_' +
-    FormatDateTime('ddmmyyyhhnn', Now) + '.csv';
-
-  exportObj := TStringList.Create;
-  exportObj.Add('ID_ANALISE;DATA_ANALISE;NOME_ANALISE;VIDEO;' +
-    'ID_EVENTO;DATA_EVENTO;VIDEO_MILLISEC;TIMER_VIDEO;' +
-    'LUTA_MILLISEC;TIMER_LUTA;ARBITRO;PONTUACAO;SITUACAO;' +
-    'DESLOCAMENTO_TORI;DESLOCAMENTO_UKE;DESLOCAMENTO_FINAL;' +
-    'POSICAO;DIRECAO;PEGADA_MAO_DIREITA;PEGADA_MAO_ESQUERDA');
-
   try
+    CSVExporter.FileName := Application.Location + 'jass_' +
+      FormatDateTime('ddmmyyyhhnn', Now) + '.csv';
+
     qryGeral.Close;
-    qryGeral.SQL.Clear;
-    qryGeral.SQL.Add('SELECT');
-    qryGeral.SQL.Add('a.id_analise, a.data_hora AS DT_ANALISE, a.nome, a.video,');
-    qryGeral.SQL.Add('e.id_evento, e.data_hora AS DT_EVENTO, e.sec_video, e.sec_luta,');
-    qryGeral.SQL.Add('e.arbi_tempo, e.arbi_pontuacao, e.arbi_situacao,');
-    qryGeral.SQL.Add('e.desloca_tori, e.desloca_uke, e.desloca_final,');
-    qryGeral.SQL.Add('e.posicao, e.direcao, e.pegada_direita, e.pegada_esquerda');
-    qryGeral.SQL.Add('FROM EVENTO e RIGHT JOIN ANALISE a on');
-    qryGeral.SQL.Add('(a.ID_ANALISE = e.ID_ANALISE) ORDER BY a.ID_ANALISE, e.ID_EVENTO');
-    qryGeral.Prepare;
-    qryGeral.Open;
-    qryGeral.First;
-    while not qryGeral.EOF do
-    begin
-
-      t_video := Round(qryGeral.FieldByName('sec_video').AsInteger / 1000);
-      t_luta := Round(qryGeral.FieldByName('sec_luta').AsInteger / 1000);
-
-      time_video := Format('%.2d:%.2d', [t_video div 60, t_video mod 60]);
-      time_luta := Format('%.2d:%.2d', [t_luta div 60, t_luta mod 60]);
-
-      exportObj.Add(
-        qryGeral.FieldByName('id_analise').AsString + ';' +
-        qryGeral.FieldByName('DT_ANALISE').AsString + ';' +
-        qryGeral.FieldByName('nome').AsString + ';' +
-        qryGeral.FieldByName('video').AsString + ';' +
-        qryGeral.FieldByName('id_evento').AsString + ';' +
-        qryGeral.FieldByName('DT_EVENTO').AsString + ';' +
-        qryGeral.FieldByName('sec_video').AsString + ';' + time_video +
-        ';' + qryGeral.FieldByName('sec_luta').AsString + ';' +
-        time_luta + ';' + qryGeral.FieldByName('arbi_tempo').AsString +
-        ';' + qryGeral.FieldByName('arbi_pontuacao').AsString +
-        ';' + qryGeral.FieldByName('arbi_situacao').AsString + ';' +
-        qryGeral.FieldByName('desloca_tori').AsString + ';' +
-        qryGeral.FieldByName('desloca_uke').AsString + ';' +
-        qryGeral.FieldByName('desloca_final').AsString + ';' +
-        qryGeral.FieldByName('posicao').AsString + ';' +
-        qryGeral.FieldByName('direcao').AsString + ';' +
-        qryGeral.FieldByName('pegada_direita').AsString + ';' +
-        qryGeral.FieldByName('pegada_esquerda').AsString
-        );
-      qryGeral.Next;
-    end;
-
-    exportObj.SaveToFile(exportName);
-    exportObj.Free;
+    qryExport.Open;
+    qryExport.First;
+    CSVExporter.Execute;
     qryGeral.Close;
 
-    Application.MessageBox(PChar('Arquivo ' + exportName + ' criado.'),
+    Application.MessageBox(PChar('Arquivo ' + CSVExporter.FileName + ' criado.'),
       'Exportar Banco de Dados', MB_ICONINFORMATION + MB_OK);
-
   except
     on E: Exception do
     begin
       Application.MessageBox(
         PChar('Erro[007]: Impossível exportar dados para CSV >> ' + E.Message),
         'Erro Fatal', MB_ICONERROR + MB_OK);
-    end;
+    end
   end;
-end;
-
-procedure TfrmPrincipal.btLimpaDeslocamentoClick(Sender: TObject);
-begin
-  prcClearDeslocamento();
-end;
-
-procedure TfrmPrincipal.btLimpaPegadaClick(Sender: TObject);
-begin
-  prcClearPegada();
-end;
-
-procedure TfrmPrincipal.btLimpaPosDirClick(Sender: TObject);
-begin
-  prcClearPosDir();
 end;
 
 procedure TfrmPrincipal.btMaisUmSecClick(Sender: TObject);
@@ -680,13 +752,35 @@ begin
   prcExibeVersaoAtual();
 end;
 
-
 procedure TfrmPrincipal.odVideoClose(Sender: TObject);
 begin
   if dbeVideoPath.GetTextLen > 0 then
     prcBtControleEnable(True);
 end;
 
+procedure TfrmPrincipal.qryExportCalcFields(DataSet: TDataSet);
+begin
+  qryExport.FieldByName('VIDEO_TIMER').AsString :=
+    Format('%.2d:%.2d', [Round(qryExport.FieldByName('SEC_VIDEO').AsInteger / 1000) div
+    60, Round(qryExport.FieldByName('SEC_VIDEO').AsInteger / 1000) mod 60]);
+
+  qryExport.FieldByName('LUTA_TIMER').AsString :=
+    Format('%.2d:%.2d', [Round(qryExport.FieldByName('SEC_LUTA').AsInteger / 1000) div
+    60, Round(qryExport.FieldByName('SEC_LUTA').AsInteger / 1000) mod 60]);
+end;
+
+procedure TfrmPrincipal.sbtClearRadioBox01Click(Sender: TObject);
+begin
+  case pgctrlDados.TabIndex of
+    1: prcClearArbitragem();
+    2: prcClearAtaque();
+    3: prcClearPegada();
+    4: prcClearNageWaza();
+    5: prcClearPosDir();
+    6: prcClearNeWaza();
+    7: prcClearDeslocamento();
+  end;
+end;
 
 procedure TfrmPrincipal.tblAnaliseAfterCancel(DataSet: TDataSet);
 begin
@@ -763,7 +857,6 @@ begin
       MB_ICONERROR + MB_OK);
     Abort;
   end;
-
 end;
 
 procedure TfrmPrincipal.tblEventoCalcFields(DataSet: TDataSet);
@@ -846,7 +939,7 @@ begin
       prcBtControleEnable(True);
       btGravarEvento.Enabled := True;
       dbgEventos.Tag := 0;
-      dbgEventos.Columns[1].Font.Color := clBlue;
+      dbgEventos.Columns[2].Font.Color := clBlue;
     end;
 
     {Variável Global para armazenr no DB}
@@ -988,6 +1081,96 @@ begin
   rdgAcoesDeTempo.ItemIndex := -1;
   rdgPontuacao.ItemIndex := -1;
   rdgSituacao.ItemIndex := -1;
+  rdgPenalidade.ItemIndex := -1;
+  rdgMotivo.ItemIndex := -1;
+  rdgDesclassificacao.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearPegada();
+begin
+  rdgMaoDireita.ItemIndex := -1;
+  rdgMaoEsquerda.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearAtaque();
+begin
+  rdgAtleta.ItemIndex := -1;
+  rdgDinamico.ItemIndex := -1;
+  rdgDominando.ItemIndex := -1;
+  rdgOportunista.ItemIndex:= -1;
+end;
+
+procedure TfrmPrincipal.prcClearPosDir();
+begin
+  rdgPosicao.ItemIndex := -1;
+  rdgDirecao.ItemIndex := -1;
+  rdgDeslocamento.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearNageWaza();
+begin
+  case pgctrlNageWaza.TabIndex of
+    0: prcClearTeWaza();
+    1: prcClearKoshiWaza();
+    2: prcClearAshiWaza();
+    3: prcClearMaSutemiWaza();
+    4: prcClearYokoSutemiWaza();
+  end;
+end;
+
+procedure TfrmPrincipal.prcClearTeWaza();
+begin
+  rdgTeWaza.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearKoshiWaza();
+begin
+  rdgKoshiWaza.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearAshiWaza();
+begin
+  rdgAshiWaza.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearMaSutemiWaza();
+begin
+  rdgMaSutemiWaza.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearYokoSutemiWaza();
+begin
+  rdgYokoSutemiWaza.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearNeWaza();
+begin
+  case pgctrlNeWaza.TabIndex of
+    0: prcClearTransicao();
+    1: prcClearOsaeKomiWaza();
+    2: prcClearShimeWaza();
+    3: prcClearKansetsuWaza();
+  end;
+end;
+
+procedure TfrmPrincipal.prcClearTransicao();
+begin
+  rdgTransicao.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearOsaeKomiWaza();
+begin
+  rdgOsaeKomiWaza.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearShimeWaza();
+begin
+  rdgShimeWaza.ItemIndex := -1;
+end;
+
+procedure TfrmPrincipal.prcClearKansetsuWaza();
+begin
+  rdgKansetsuWaza.ItemIndex := -1;
 end;
 
 procedure TfrmPrincipal.prcClearDeslocamento();
@@ -997,24 +1180,22 @@ begin
   rdgDeslocaFinal.ItemIndex := -1;
 end;
 
-procedure TfrmPrincipal.prcClearPosDir();
-begin
-  rdgPosicao.ItemIndex := -1;
-  rdgDirecao.ItemIndex := -1;
-end;
-
-procedure TfrmPrincipal.prcClearPegada();
-begin
-  rdgMaoDireita.ItemIndex := -1;
-  rdgMaoEsquerda.ItemIndex := -1;
-end;
-
 procedure TfrmPrincipal.prcClearAllRadios();
 begin
   prcClearArbitragem();
-  prcClearDeslocamento();
-  prcClearPosDir();
   prcClearPegada();
+  prcClearAtaque();
+  prcClearPosDir();
+  prcClearTeWaza();
+  prcClearKoshiWaza();
+  prcClearAshiWaza();
+  prcClearMaSutemiWaza();
+  prcClearYokoSutemiWaza();
+  prcClearTransicao();
+  prcClearOsaeKomiWaza();
+  prcClearShimeWaza();
+  prcClearKansetsuWaza();
+  prcClearDeslocamento();
 end;
 
 procedure TfrmPrincipal.prcPreLoad();
@@ -1236,6 +1417,61 @@ begin
     Inc(cnt);
   end;
 
+  if rdgMaoDireita.ItemIndex > -1 then
+  begin
+    tblEventoPEGADA_DIREITA.Value := rdgMaoDireita.Items[rdgMaoDireita.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgMaoEsquerda.ItemIndex > -1 then
+  begin
+    tblEventoPEGADA_ESQUERDA.Value := rdgMaoEsquerda.Items[rdgMaoEsquerda.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgPenalidade.ItemIndex > -1 then
+  begin
+    tblEventoARBI_PENALIDADE.Value := rdgPenalidade.Items[rdgPenalidade.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgMotivo.ItemIndex > -1 then
+  begin
+    tblEventoARBI_MOTIVO.Value := rdgMotivo.Items[rdgMotivo.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgDesclassificacao.ItemIndex > -1 then
+  begin
+    tblEventoARBI_DESCLASSIFICACAO.Value :=
+      rdgDesclassificacao.Items[rdgDesclassificacao.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgAtleta.ItemIndex > -1 then
+  begin
+    tblEventoATAQUE_ATLETA.Value := rdgAtleta.Items[rdgAtleta.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgDinamico.ItemIndex > -1 then
+  begin
+    tblEventoATAQUE_DINAMICO.Value := rdgDinamico.Items[rdgDinamico.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgDominando.ItemIndex > -1 then
+  begin
+    tblEventoATAQUE_DOMINANDO.Value := rdgDominando.Items[rdgDominando.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgOportunista.ItemIndex > -1 then
+  begin
+    tblEventoATAQUE_OPORTUNISTA.Value := rdgOportunista.Items[rdgOportunista.ItemIndex];
+    Inc(cnt);
+  end;
+
   if rdgPosicao.ItemIndex > -1 then
   begin
     tblEventoPOSICAO.Value := rdgPosicao.Items[rdgPosicao.ItemIndex];
@@ -1248,15 +1484,64 @@ begin
     Inc(cnt);
   end;
 
-  if rdgMaoDireita.ItemIndex > -1 then
+  if rdgDeslocamento.ItemIndex > -1 then
   begin
-    tblEventoPEGADA_DIREITA.Value := rdgMaoDireita.Items[rdgMaoDireita.ItemIndex];
+    tblEventoPOS_DESLOCAMENTO.Value := rdgDeslocamento.Items[rdgDeslocamento.ItemIndex];
     Inc(cnt);
   end;
 
-  if rdgMaoEsquerda.ItemIndex > -1 then
+  if rdgTeWaza.ItemIndex > -1 then
   begin
-    tblEventoPEGADA_ESQUERDA.Value := rdgMaoEsquerda.Items[rdgMaoEsquerda.ItemIndex];
+    tblEventoNAGE_TE.Value := rdgTeWaza.Items[rdgTeWaza.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgKoshiWaza.ItemIndex > -1 then
+  begin
+    tblEventoNAGE_KOSHI.Value := rdgKoshiWaza.Items[rdgKoshiWaza.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgAshiWaza.ItemIndex > -1 then
+  begin
+    tblEventoNAGE_ASHI.Value := rdgAshiWaza.Items[rdgAshiWaza.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgMaSutemiWaza.ItemIndex > -1 then
+  begin
+    tblEventoNAGE_MASUTEMI.Value := rdgMaSutemiWaza.Items[rdgMaSutemiWaza.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgYokoSutemiWaza.ItemIndex > -1 then
+  begin
+    tblEventoNAGE_YOKOSUTEMI.Value :=
+      rdgYokoSutemiWaza.Items[rdgYokoSutemiWaza.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgTransicao.ItemIndex > -1 then
+  begin
+    tblEventoNE_TRANSICAO.Value := rdgTransicao.Items[rdgTransicao.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgOsaeKomiWaza.ItemIndex > -1 then
+  begin
+    tblEventoNE_OSAEKOMI.Value := rdgOsaeKomiWaza.Items[rdgOsaeKomiWaza.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgShimeWaza.ItemIndex > -1 then
+  begin
+    tblEventoNE_SHIME.Value := rdgShimeWaza.Items[rdgShimeWaza.ItemIndex];
+    Inc(cnt);
+  end;
+
+  if rdgKansetsuWaza.ItemIndex > -1 then
+  begin
+    tblEventoNE_KANSETSU.Value := rdgKansetsuWaza.Items[rdgKansetsuWaza.ItemIndex];
     Inc(cnt);
   end;
 
@@ -1304,16 +1589,69 @@ begin
   try
     FileVerInfo.ReadFileInfo;
 
-    prcLog('-- Info --');
+    prcLog('-- Version --');
     prcLog(FileVerInfo.VersionStrings.Values['ProductVersion']);
     prcLog(FileVerInfo.VersionStrings.Values['FileVersion']);
+    prcLog(FileVerInfo.VersionStrings.Values['InternalName']);
+    prcLog('----');
 
-    frmPrincipal.Caption:= 'JASS ' + FileVerInfo.VersionStrings.Values['FileVersion'];
+    frmPrincipal.Caption := 'JASS ' + FileVerInfo.VersionStrings.Values['FileVersion'];
 
   finally
     FileVerInfo.Free;
   end;
+end;
 
+procedure TfrmPrincipal.prcAddFieldEvento(fieldIn: string);
+begin
+  fieldIn:= UpperCase(fieldIn);
+
+  prcLog('-- Retrocompatibilidade --');
+
+  {Verifica se a coluna "fieldIn" existe na tabela EVENTO e cria se necessário}
+  try
+    prcLog('Verificando a a coluna ' + fieldIn);
+    qryGeral.Close;
+    qryGeral.SQL.Clear;
+    qryGeral.SQL.Add('select rf.RDB$DB_KEY from RDB$RELATION_FIELDS rf');
+    qryGeral.SQL.Add('where rf.RDB$RELATION_NAME = ' + QuotedStr('EVENTO'));
+    qryGeral.SQL.Add('and rf.RDB$FIELD_NAME = ' + QuotedStr(fieldIn));
+    qryGeral.Prepare;
+    qryGeral.Open;
+    prcLog(qryGeral.SQL.GetText);
+    prcLog('RecordCount: ' + qryGeral.RecordCount.ToString);
+
+    if qryGeral.RecordCount <= 0 then
+      try
+        prcLog('Criando a a coluna ' + fieldIn);
+        qryGeral.Close;
+        qryGeral.SQL.Clear;
+        qryGeral.SQL.Add('ALTER TABLE EVENTO ADD ' + fieldIn + ' VARCHAR(50)');
+        qryGeral.Prepare;
+        qryGeral.ExecSQL;
+        prcLog(qryGeral.SQL.GetText());
+      except
+        on E: Exception do
+        begin
+          Application.MessageBox(
+            PChar('Erro[009]: Não foi criar o campo ''' + fieldIn +
+            ''' na tabela EVENTO >> ' + E.Message),
+            'Erro Fatal', MB_ICONERROR + MB_OK);
+          Application.Terminate;
+        end
+      end;
+  except
+    on E: Exception do
+    begin
+      Application.MessageBox(
+        PChar('Erro[008]: Não foi verificar o campo ''' + fieldIn +
+        ''' na tabela EVENTO >> ' + E.Message),
+        'Erro Fatal', MB_ICONERROR + MB_OK);
+      Application.Terminate;
+    end
+  end;
+
+  prcLog('----');
 end;
 
 function TfrmPrincipal.getFightCurrentIndex(posMs: longint): longint;
@@ -1413,6 +1751,5 @@ begin
 
   Result := arbi;
 end;
-
 
 end.

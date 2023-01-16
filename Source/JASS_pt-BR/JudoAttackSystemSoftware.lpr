@@ -28,7 +28,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, PasLibVlcPlayer, zcomponent, ufrmprincipal
+  Forms, lazdbexport, PasLibVlcPlayer, zcomponent, ufrmprincipal
   { you can add units after this };
 
 {$R *.res}

@@ -19,10 +19,10 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="1"/>
-      <MinorVersionNr Value="1"/>
-      <BuildNr Value="3"/>
+      <MinorVersionNr Value="2"/>
+      <BuildNr Value="4"/>
       <Language Value="0416"/>
-      <StringTable CompanyName="Felipe Kashiwagura" LegalCopyright="GNU General Public License" OriginalFilename="JudoAttacksystemSoftware" ProductName="JASS" ProductVersion="1.1"/>
+      <StringTable CompanyName="Felipe Kashiwagura" InternalName="JASS SI" LegalCopyright="GNU General Public License" OriginalFilename="JudoAttacksystemSoftware" ProductName="JASS" ProductVersion="1.2"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -35,19 +35,22 @@
       <FormatVersion Value="2"/>
       <Modes Count="0"/>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="FCL"/>
+        <PackageName Value="lazdbexport"/>
       </Item1>
       <Item2>
-        <PackageName Value="PasLibVlcPlayer"/>
+        <PackageName Value="FCL"/>
       </Item2>
       <Item3>
-        <PackageName Value="zcomponent"/>
+        <PackageName Value="PasLibVlcPlayer"/>
       </Item3>
       <Item4>
-        <PackageName Value="LCL"/>
+        <PackageName Value="zcomponent"/>
       </Item4>
+      <Item5>
+        <PackageName Value="LCL"/>
+      </Item5>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
